@@ -18,6 +18,8 @@ import './utils/jiffy_exception.dart';
 /// [momentjs](https://momentjs.com/) for parsing, manipulating, querying and
 /// formatting dates
 class Jiffy {
+  static Locale currentLocale = EnUsLocale();
+
   late final Getter _getter;
   late final DefaultDisplay _defaultDisplay;
   late final Parser _parser;
@@ -220,10 +222,12 @@ class Jiffy {
 
     if (supported_locales.isLocalSupported(systemLocale)) {
       _locale = supported_locales.getLocale(systemLocale);
+      Jiffy.currentLocale = _locale;
     } else {
       // The locale `systemLocale` is not supported by Jiffy, hence '
       // 'setting a default locale of `en_us`
       _locale = EnUsLocale();
+      Jiffy.currentLocale = EnUsLocale();
     }
   }
 
